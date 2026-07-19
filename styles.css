@@ -1,0 +1,1005 @@
+/* ==========================================================================
+   DESIGN SYSTEM & CUSTOM PROPERTIES
+   ========================================================================== */
+:root {
+    /* Color Palette */
+    --color-bg-body: #f8f6f3;          /* Warm neutral background for desktop */
+    --color-bg-card: #ffffff;          /* Pure white invitation background */
+    --color-title: #2c3e50;            /* Elegant dark blue-grey */
+    --color-text: #4a4a4a;             /* Readable charcoal body text */
+    --color-text-light: #7a7a7a;       /* Soft grey for secondary text */
+    --color-accent: #8fa499;           /* Sage green / Verde salvia */
+    --color-accent-light: #e8edea;     /* Very soft sage green accent */
+    --color-border: #f2ede9;           /* Soft border cream-grey */
+    --color-gold: #c8a261;             /* Soft gold accent */
+    --color-gold-light: #f9f5ed;       /* Light gold wash */
+    
+    /* Fonts */
+    --font-title: 'Cormorant Garamond', Georgia, serif;
+    --font-body: 'Montserrat', Helvetica, Arial, sans-serif;
+    
+    /* Layout & Shadows */
+    --shadow-soft: 0 10px 30px rgba(44, 62, 80, 0.04);
+    --shadow-medium: 0 15px 35px rgba(44, 62, 80, 0.08);
+    --shadow-premium: 0 20px 50px rgba(44, 62, 80, 0.12);
+    --border-radius-sm: 8px;
+    --border-radius-md: 16px;
+    --border-radius-lg: 24px;
+}
+
+/* ==========================================================================
+   BASE STYLES & RESET
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--color-bg-body);
+    font-family: var(--font-body);
+    color: var(--color-text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+/* Desktop autocenter wrapper (max 500px) */
+.app-container {
+    width: 100%;
+    max-width: 500px;
+    background-color: var(--color-bg-card);
+    min-height: 100vh;
+    box-shadow: var(--shadow-premium);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    border-left: 1px solid var(--color-border);
+    border-right: 1px solid var(--color-border);
+}
+
+/* Global Section Styling */
+.section {
+    padding: 3rem 1.75rem;
+    text-align: center;
+    position: relative;
+    border-bottom: 1px solid var(--color-border);
+    background-color: var(--color-bg-card);
+}
+
+.section-title {
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: var(--color-title);
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    position: relative;
+}
+
+.section-title::after {
+    content: "";
+    display: block;
+    width: 40px;
+    height: 1px;
+    background-color: var(--color-accent);
+    margin: 0.75rem auto 0 auto;
+}
+
+/* Helper Buttons & Links */
+a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+button {
+    font-family: var(--font-body);
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ANIMATIONS
+   ========================================================================== */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-item {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal-item.revealed {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   SECTION 1: HERO (PORTADA)
+   ========================================================================== */
+.hero {
+    padding: 0 0 3.5rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.hero-top-frame {
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+}
+
+.watercolour-frame-top {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.hero-content {
+    padding: 1.5rem 1.5rem 0 1.5rem;
+    width: 100%;
+}
+
+.hero-pre-title {
+    font-size: 0.75rem;
+    letter-spacing: 4px;
+    font-weight: 500;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+}
+
+.hero-title {
+    font-family: var(--font-title);
+    font-size: 3.2rem;
+    font-weight: 300;
+    color: var(--color-title);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+}
+
+.hero-date {
+    font-family: var(--font-title);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--color-text-light);
+    margin-bottom: 2rem;
+    letter-spacing: 0.5px;
+}
+
+.hero-illustration-container {
+    width: 190px;
+    height: 190px;
+    margin: 0 auto 2.5rem auto;
+    border-radius: 50%;
+    padding: 8px;
+    border: 1px dashed var(--color-accent);
+    position: relative;
+    background-color: var(--color-bg-card);
+}
+
+.hero-illustration-container::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid var(--color-border);
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.hero-illustration {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.hero-location {
+    font-size: 0.85rem;
+    letter-spacing: 6px;
+    color: var(--color-title);
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   SECTION 2: NUESTRA HISTORIA (VIDEO)
+   ========================================================================== */
+.history {
+    background-color: var(--color-bg-card);
+}
+
+.video-outer-frame {
+    padding: 10px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+}
+
+.video-outer-frame::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    bottom: 5px;
+    border: 1px dashed rgba(143, 164, 153, 0.4);
+    border-radius: calc(var(--border-radius-md) - 5px);
+    pointer-events: none;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    border-radius: calc(var(--border-radius-md) - 10px);
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* ==========================================================================
+   SECTION 3 & 4: BIENVENIDA, COCHE & CONTADOR REGRESIVO
+   ========================================================================== */
+.welcome {
+    background-color: var(--color-bg-card);
+}
+
+.welcome-text {
+    font-family: var(--font-title);
+    font-style: italic;
+    font-size: 1.25rem;
+    color: var(--color-title);
+    margin-bottom: 2rem;
+    line-height: 1.5;
+}
+
+.vintage-car-container {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto;
+}
+
+.vintage-car {
+    width: 100%;
+    height: auto;
+}
+
+/* Countdown section styling */
+.countdown {
+    background: linear-gradient(180deg, var(--color-bg-card) 0%, var(--color-gold-light) 100%);
+    padding-top: 1rem;
+}
+
+.countdown-subtitle {
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--color-title);
+    margin-bottom: 1.5rem;
+}
+
+.timer-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+    width: fit-content;
+}
+
+.timer-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--color-bg-card);
+    padding: 0.75rem 0.5rem;
+    border-radius: var(--border-radius-sm);
+    min-width: 70px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--color-border);
+}
+
+.timer-number {
+    font-family: var(--font-title);
+    font-size: 2.2rem;
+    font-weight: 400;
+    color: var(--color-title);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+}
+
+.timer-label {
+    font-size: 0.6rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+    color: var(--color-accent);
+}
+
+.timer-divider {
+    font-family: var(--font-title);
+    font-size: 2rem;
+    color: var(--color-accent);
+    line-height: 1;
+    padding-bottom: 1.5rem;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+}
+
+/* ==========================================================================
+   SECTION 5: GALERÍA DE FOTOS
+   ========================================================================== */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+    margin-top: 1rem;
+}
+
+.watercolor-photo-frame {
+    padding: 6px;
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.watercolor-photo-frame::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid rgba(143, 164, 153, 0.2);
+    border-radius: calc(var(--border-radius-sm) - 2px);
+    pointer-events: none;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+    border-radius: calc(var(--border-radius-sm) - 4px);
+    transition: transform 0.6s ease;
+}
+
+.watercolor-photo-frame:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.watercolor-photo-frame:hover .gallery-img {
+    transform: scale(1.06);
+}
+
+/* ==========================================================================
+   SECTION 6: UBICACIONES (TARJETAS FLIP 3D)
+   ========================================================================== */
+.cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.flip-card-wrapper {
+    perspective: 1000px;
+    width: 100%;
+    height: 240px;
+}
+
+.flip-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flip-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-border);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: var(--shadow-soft);
+    background-color: var(--color-bg-card);
+}
+
+.card-face::before {
+    content: "";
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    right: 6px;
+    bottom: 6px;
+    border: 1px dashed rgba(143, 164, 153, 0.3);
+    border-radius: calc(var(--border-radius-md) - 6px);
+    pointer-events: none;
+}
+
+.card-front {
+    background: linear-gradient(135deg, var(--color-bg-card) 0%, var(--color-accent-light) 100%);
+}
+
+.card-decor {
+    font-size: 2.2rem;
+    margin-bottom: 0.75rem;
+}
+
+.card-front h3 {
+    font-family: var(--font-title);
+    font-size: 1.6rem;
+    color: var(--color-title);
+    margin-bottom: 0.5rem;
+}
+
+.card-front .time {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--color-accent);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.sub-instructions {
+    font-size: 0.7rem;
+    color: var(--color-text-light);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.card-back {
+    background-color: var(--color-bg-card);
+    transform: rotateY(180deg);
+}
+
+.card-back h3 {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    color: var(--color-title);
+    margin-bottom: 0.75rem;
+}
+
+.card-back .address {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    margin-bottom: 1.25rem;
+    max-width: 90%;
+}
+
+.btn-map {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.5rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(143, 164, 153, 0.3);
+}
+
+.btn-map:hover {
+    background-color: #798e84;
+    transform: translateY(-2px);
+}
+
+.btn-flip-back {
+    background: none;
+    color: var(--color-text-light);
+    font-size: 0.75rem;
+    margin-top: 1rem;
+}
+
+/* ==========================================================================
+   SECTION 7: ITINERARIO (TIMELINE)
+   ========================================================================== */
+.timeline {
+    position: relative;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding-left: 2rem;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 5px;
+    bottom: 5px;
+    width: 2px;
+    background-color: var(--color-border);
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-marker {
+    position: absolute;
+    left: -27px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 3px solid var(--color-bg-card);
+    box-shadow: 0 0 0 3px var(--color-accent-light);
+    transition: transform 0.3s ease;
+}
+
+.timeline-item:hover .timeline-marker {
+    transform: scale(1.3);
+}
+
+.timeline-content {
+    background-color: var(--color-bg-card);
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-soft);
+}
+
+.timeline-time {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    margin-bottom: 0.25rem;
+}
+
+.timeline-event {
+    font-family: var(--font-title);
+    font-size: 1.15rem;
+    color: var(--color-title);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.timeline-desc {
+    font-size: 0.8rem;
+    color: var(--color-text-light);
+}
+
+/* ==========================================================================
+   SECTION 8: DRESS CODE
+   ========================================================================== */
+.dress-intro {
+    font-family: var(--font-title);
+    font-size: 1.4rem;
+    font-style: italic;
+    color: var(--color-title);
+    margin-bottom: 2rem;
+}
+
+.dress-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.dress-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.dress-icon-container {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dress-icon {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.dress-col h4 {
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+    color: var(--color-title);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.dress-col p {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    margin-bottom: 0.25rem;
+}
+
+.dress-tip {
+    font-size: 0.65rem;
+    font-style: italic;
+    color: var(--color-text-light);
+    max-width: 90%;
+    line-height: 1.2;
+}
+
+/* Swatch palette styling */
+.palette-container {
+    background-color: var(--color-bg-body);
+    padding: 1.25rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-border);
+}
+
+.palette-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--color-text-light);
+    margin-bottom: 1rem;
+}
+
+.color-palette {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.color-swatch {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    cursor: help;
+}
+
+.color-swatch:hover {
+    transform: scale(1.15);
+}
+
+.swatch-sage { background-color: #8fa499; }
+.swatch-slate { background-color: #7e8f9c; }
+.swatch-rose { background-color: #c8a7a1; }
+.swatch-dusty { background-color: #a6b6c0; }
+.swatch-gold { background-color: #d4c3b3; }
+
+.palette-caption {
+    font-size: 0.65rem;
+    color: var(--color-text-light);
+    font-style: italic;
+}
+
+/* ==========================================================================
+   SECTION 9: MESA DE REGALOS
+   ========================================================================== */
+.registry-intro {
+    font-size: 0.85rem;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+}
+
+.gift-envelope-container {
+    width: 100px;
+    margin: 0 auto 1.5rem auto;
+}
+
+.gift-envelope {
+    width: 100%;
+    height: auto;
+}
+
+.registry-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.registry-card {
+    background-color: var(--color-bg-body);
+    padding: 1.25rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-border);
+    text-align: center;
+}
+
+.registry-card h4 {
+    font-family: var(--font-title);
+    font-size: 1.25rem;
+    color: var(--color-title);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.registry-card p {
+    font-size: 0.8rem;
+    color: var(--color-text);
+    margin-bottom: 0.75rem;
+}
+
+.btn-registry {
+    display: inline-block;
+    background-color: var(--color-title);
+    color: white;
+    padding: 0.4rem 1.5rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.btn-registry:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-1px);
+}
+
+.bank-details {
+    background-color: white;
+    padding: 0.75rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-border);
+    display: inline-block;
+    text-align: left;
+    width: 100%;
+    max-width: 320px;
+}
+
+.bank-details p {
+    font-size: 0.75rem;
+    margin-bottom: 0.25rem;
+}
+
+.bank-details p:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   SECTION 10: RSVP (FORMULARIO CONFIRMACIÓN)
+   ========================================================================== */
+.rsvp {
+    background: linear-gradient(180deg, var(--color-bg-card) 0%, var(--color-accent-light) 100%);
+}
+
+.rsvp-greeting {
+    font-family: var(--font-title);
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--color-title);
+    margin-bottom: 1.5rem;
+}
+
+.rsvp-form {
+    text-align: left;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.4rem;
+    color: var(--color-title);
+    text-transform: uppercase;
+}
+
+.form-group input[type="text"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    border: 1px solid var(--color-border);
+    background-color: white;
+    border-radius: var(--border-radius-sm);
+    color: var(--color-text);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input[type="text"]:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(143, 164, 153, 0.15);
+    outline: none;
+}
+
+.pases-label {
+    display: block;
+    font-size: 0.65rem;
+    color: var(--color-accent);
+    margin-top: 0.25rem;
+    font-style: italic;
+}
+
+.btn-submit {
+    display: block;
+    width: 100%;
+    background-color: var(--color-title);
+    color: white;
+    padding: 0.85rem;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px rgba(44, 62, 80, 0.15);
+    margin-top: 1.75rem;
+}
+
+.btn-submit:hover {
+    background-color: var(--color-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(143, 164, 153, 0.3);
+}
+
+.btn-submit:active {
+    transform: translateY(0);
+}
+
+.btn-submit.sending {
+    background-color: var(--color-text-light);
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+/* Success Card styling */
+.rsvp-success-message {
+    background-color: white;
+    padding: 2rem 1.5rem;
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-medium);
+    text-align: center;
+    margin-top: 1rem;
+    animation: scaleUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.success-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    animation: float 2s infinite ease-in-out;
+}
+
+.rsvp-success-message h4 {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    color: var(--color-title);
+    margin-bottom: 0.5rem;
+}
+
+.rsvp-success-message p {
+    font-size: 0.85rem;
+    color: var(--color-text);
+}
+
+@keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+.app-footer {
+    padding: 2.5rem 1rem;
+    text-align: center;
+    background-color: var(--color-title);
+    color: white;
+}
+
+.footer-hashtag {
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.footer-made {
+    font-size: 0.7rem;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVENESS)
+   ========================================================================== */
+@media (max-width: 480px) {
+    .section {
+        padding: 2.5rem 1.25rem;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .section-title {
+        font-size: 1.9rem;
+    }
+    
+    .gallery-grid {
+        gap: 0.75rem;
+    }
+    
+    .gallery-img {
+        height: 140px;
+    }
+}
