@@ -184,7 +184,7 @@ function initScrollReveal() {
     const observer = new IntersectionObserver(revealCallback, observerOptions);
 
     // Observe all sections and grid items
-    const elementsToReveal = document.querySelectorAll(".reveal, .reveal-item");
+    const elementsToReveal = document.querySelectorAll(".reveal, .reveal-item, .reveal-card");
     
     if (elementsToReveal.length > 0) {
         elementsToReveal.forEach(el => {
