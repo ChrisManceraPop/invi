@@ -1,38 +1,43 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gaby & Chris | Nuestra Boda - 24 de Octubre, 2026</title>
-    <meta name="description" content="Acompáñanos a celebrar la boda de Gabriela Vargas Castro (Gaby) y Christian Alberto Mancera Popoca (Chris) el 24 de Octubre de 2026 en Tulancingo, Hidalgo.">
-    
+    <meta name="description"
+        content="Acompáñanos a celebrar la boda de Gabriela Vargas Castro (Gaby) y Christian Alberto Mancera Popoca (Chris) el 24 de Octubre de 2026 en Tulancingo, Hidalgo.">
+
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Stylesheets -->
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <!-- Main App Container (autocentered to max-width 500px on desktop) -->
     <main class="app-container" id="app-root">
-        
+
         <!-- SECTION 1: HERO PORTADA -->
         <header class="section hero" id="section-hero">
             <div class="hero-top-frame">
                 <img src="assets/marco-flores.png" alt="Decoración de flores acuarela" class="watercolour-frame-top">
             </div>
-            
+
             <div class="hero-content">
                 <p class="hero-pre-title">NUESTRA BODA</p>
                 <h1 class="hero-title">Gaby & Chris</h1>
                 <p class="hero-date">24 de Octubre, 2026</p>
-                
+
                 <div class="hero-illustration-container">
                     <img src="assets/acuarela-centro.png" alt="Ilustración novios acuarela" class="hero-illustration">
                 </div>
-                
+
                 <p class="hero-location">TULANCINGO, HIDALGO</p>
             </div>
         </header>
@@ -43,12 +48,9 @@
             <div class="video-outer-frame">
                 <div class="video-container">
                     <!-- Standard romantic placeholder wedding cinematic video -->
-                    <iframe 
-                        id="history-video"
-                        src="https://www.youtube.com/embed/kG8zF5wY2tU" 
-                        title="Gaby & Chris Story" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    <iframe id="history-video" src="https://www.youtube.com/embed/pwtNLNzjBYU" title="Gaby & Chris Story"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                         allowfullscreen>
                     </iframe>
                 </div>
@@ -58,8 +60,9 @@
         <!-- SECTION 3: BIENVENIDA Y COCHE VINTAGE -->
         <section class="section welcome reveal" id="section-welcome">
             <h2 class="section-title">Acompáñanos a empezar nuestra historia</h2>
-            <p class="welcome-text">El amor no es solo mirarse el uno al otro, es mirar en la misma dirección. Nos encantaría que formes parte de este día tan especial.</p>
-            
+            <p class="welcome-text">El amor no es solo mirarse el uno al otro, es mirar en la misma dirección. Nos
+                encantaría que formes parte de este día tan especial.</p>
+
             <div class="vintage-car-container">
                 <img src="assets/coche-vintage.png" alt="Coche clásico con flores" class="vintage-car">
             </div>
@@ -68,7 +71,7 @@
         <!-- SECTION 4: CONTADOR REGRESIVO -->
         <section class="section countdown reveal" id="section-countdown">
             <h3 class="countdown-subtitle">¡El gran día está cerca!</h3>
-            
+
             <div class="timer-container" id="countdown-timer">
                 <div class="timer-block">
                     <span class="timer-number" id="days">00</span>
@@ -95,7 +98,7 @@
         <!-- SECTION 5: GALERÍA DE FOTOS ANIMADA -->
         <section class="section gallery" id="section-gallery">
             <h2 class="section-title">Nuestra Galería</h2>
-            
+
             <div class="gallery-pile-container">
                 <div class="polaroid-card reveal-card card-1">
                     <img src="assets/novios-1.png" alt="Gaby & Chris momentos 1">
@@ -115,7 +118,7 @@
         <!-- SECTION 6: UBICACIONES (TARJETAS FLIP 3D) -->
         <section class="section locations reveal" id="section-locations">
             <h2 class="section-title">¿Dónde y Cuándo?</h2>
-            
+
             <div class="cards-container">
                 <!-- Card 1: Ceremonia -->
                 <div class="flip-card-wrapper" id="card-ceremony-wrapper">
@@ -128,8 +131,10 @@
                         </div>
                         <div class="card-face card-back">
                             <h3>Templo de San Francisco</h3>
-                            <p class="address">Calle Manuel Fernando Soto s/n, Centro, 43600 Tulancingo de Bravo, Hgo.</p>
-                            <a href="https://maps.app.goo.gl/PzS2a7tL2p7y6ZgFA" target="_blank" class="btn-map" id="btn-map-ceremony">Abrir Mapa</a>
+                            <p class="address">Calle Manuel Fernando Soto s/n, Centro, 43600 Tulancingo de Bravo, Hgo.
+                            </p>
+                            <a href="https://maps.app.goo.gl/PzS2a7tL2p7y6ZgFA" target="_blank" class="btn-map"
+                                id="btn-map-ceremony">Abrir Mapa</a>
                             <button class="btn-flip-back" aria-label="Volver">↩ Volver</button>
                         </div>
                     </div>
@@ -147,7 +152,8 @@
                         <div class="card-face card-back">
                             <h3>Salón & Jardín de Eventos</h3>
                             <p class="address">Av. de los Jardines No. 120, Col. El Paraíso, Tulancingo, Hgo.</p>
-                            <a href="https://maps.app.goo.gl/dUpS3GypRryhF8Uq5" target="_blank" class="btn-map" id="btn-map-reception">Abrir Mapa</a>
+                            <a href="https://maps.app.goo.gl/dUpS3GypRryhF8Uq5" target="_blank" class="btn-map"
+                                id="btn-map-reception">Abrir Mapa</a>
                             <button class="btn-flip-back" aria-label="Volver">↩ Volver</button>
                         </div>
                     </div>
@@ -158,7 +164,7 @@
         <!-- SECTION 7: ITINERARIO -->
         <section class="section itinerary reveal" id="section-itinerary">
             <h2 class="section-title">Nuestro Itinerario</h2>
-            
+
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
@@ -168,7 +174,7 @@
                         <p class="timeline-desc">Templo de San Francisco</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
@@ -177,7 +183,7 @@
                         <p class="timeline-desc">Bebidas de bienvenida y fotos con invitados</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
@@ -186,7 +192,7 @@
                         <p class="timeline-desc">Cena formal de tres tiempos y brindis oficial</p>
                     </div>
                 </div>
-                
+
                 <div class="timeline-item">
                     <div class="timeline-marker"></div>
                     <div class="timeline-content">
@@ -201,19 +207,21 @@
         <!-- SECTION 9: MESA DE REGALOS -->
         <section class="section registry reveal" id="section-registry">
             <h2 class="section-title">Mesa de Regalos</h2>
-            <p class="registry-intro">Tu presencia es nuestro mejor regalo, pero si deseas tener un detalle con nosotros, te dejamos algunas opciones:</p>
-            
+            <p class="registry-intro">Tu presencia es nuestro mejor regalo, pero si deseas tener un detalle con
+                nosotros, te dejamos algunas opciones:</p>
+
             <div class="gift-envelope-container">
                 <img src="assets/sobre-flores.png" alt="Sobre con flores acuarela" class="gift-envelope">
             </div>
-            
+
             <div class="registry-options">
                 <div class="registry-card">
                     <h4>Liverpool</h4>
                     <p>Mesa de Regalos: <strong>50482931</strong></p>
-                    <a href="https://mesaderegala.liverpool.com.mx/" target="_blank" class="btn-registry" id="btn-registry-liverpool">Ver Mesa</a>
+                    <a href="https://mesaderegala.liverpool.com.mx/" target="_blank" class="btn-registry"
+                        id="btn-registry-liverpool">Ver Mesa</a>
                 </div>
-                
+
                 <div class="registry-card">
                     <h4>Lluvia de Sobres</h4>
                     <p>Contaremos con un cofre el día del evento para obsequios en efectivo.</p>
@@ -233,21 +241,21 @@
         <!-- SECTION 10: RSVP (CONFIRMACIÓN CONTROLADA) -->
         <section class="section rsvp reveal" id="section-rsvp">
             <h2 class="section-title">Confirmar Asistencia</h2>
-            
+
             <div class="rsvp-greeting" id="rsvp-greeting-box">
                 <p id="rsvp-greeting-text">¡Nos encantaría contar con tu presencia!</p>
             </div>
-            
+
             <form id="rsvp-form" class="rsvp-form">
                 <!-- Hidden inputs for query data logic tracking -->
                 <input type="hidden" id="invitee-name-hidden" name="invitee_name">
                 <input type="hidden" id="pases-max-hidden" name="pases_max">
-                
+
                 <div class="form-group">
                     <label for="input-name">Nombre Completo</label>
                     <input type="text" id="input-name" name="guest_name" required placeholder="Escribe tu nombre">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="select-attendance">¿Asistirás?</label>
                     <select id="select-attendance" name="attendance" required>
@@ -256,7 +264,7 @@
                         <option value="no">No podré asistir</option>
                     </select>
                 </div>
-                
+
                 <div class="form-group" id="tickets-group">
                     <label for="select-tickets">Boletos a confirmar</label>
                     <select id="select-tickets" name="tickets">
@@ -266,15 +274,16 @@
                     </select>
                     <span class="pases-label" id="max-pases-notice"></span>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="input-message">Mensaje para los novios (Opcional)</label>
-                    <textarea id="input-message" name="message" rows="3" placeholder="Déjanos un bonito mensaje..."></textarea>
+                    <textarea id="input-message" name="message" rows="3"
+                        placeholder="Déjanos un bonito mensaje..."></textarea>
                 </div>
-                
+
                 <button type="submit" class="btn-submit" id="rsvp-submit">Confirmar Asistencia</button>
             </form>
-            
+
             <div class="rsvp-success-message hidden" id="rsvp-success-box">
                 <div class="success-icon">✨</div>
                 <h4>¡Muchas gracias por confirmar!</h4>
@@ -292,8 +301,9 @@
         </footer>
 
     </main>
-    
+
     <!-- Scripts -->
     <script src="app.js"></script>
 </body>
+
 </html>
