@@ -8,7 +8,7 @@
 // ==========================================================================
 // If you have set up a Google Sheets Webhook via Google Apps Script, paste the URL here.
 // Leaving it empty will run the RSVP form in "Simulation Mode" (simulates successful submission).
-const GOOGLE_SHEETS_WEBHOOK_URL = "";
+const GOOGLE_SHEETS_WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbyGNyQn20Pw71GXmgkIt50rdwAmAvTnC2wX_oNz7JmiaYTKffsPIKFWOmC3sJ-TPGwkVQ/exec";
 
 // Paste your WhatsApp Phone Number here (including country code, e.g., '52' for Mexico and 10 digits: '525512345678')
 const WHATSAPP_PHONE_NUMBER = "527751234567";
