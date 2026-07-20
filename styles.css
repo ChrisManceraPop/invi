@@ -481,6 +481,13 @@ button {
     margin-bottom: 0.75rem;
 }
 
+.card-decor-img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 0.75rem;
+}
+
 .card-front h3 {
     font-family: var(--font-title);
     font-size: 1.6rem;
