@@ -10,6 +10,9 @@
 // Leaving it empty will run the RSVP form in "Simulation Mode" (simulates successful submission).
 const GOOGLE_SHEETS_WEBHOOK_URL = "";
 
+// Paste your WhatsApp Phone Number here (including country code, e.g., '52' for Mexico and 10 digits: '525512345678')
+const WHATSAPP_PHONE_NUMBER = "527751234567";
+
 // Target Date: 24th October 2026, 1:00 PM (13:00 HRS)
 // Note: In JavaScript, months are 0-indexed (January = 0, October = 9)
 const WEDDING_DATE = new Date(2026, 9, 24, 13, 0, 0);
@@ -248,6 +251,11 @@ function initRsvpForm() {
         if (successDesc) {
             successDesc.textContent = "Ya has registrado tu asistencia anteriormente. ¡Gracias!";
         }
+        // Hide the WhatsApp button on re-visits since confirmation is complete
+        const wppBtn = document.getElementById("btn-whatsapp-send");
+        if (wppBtn) {
+            wppBtn.classList.add("hidden");
+        }
         return;
     }
 
@@ -327,6 +335,27 @@ function initRsvpForm() {
             } else {
                 successDesc.innerHTML = `Lamentamos que no puedas asistir, gracias por avisarnos.<br>¡Te extrañaremos!`;
             }
+        }
+
+        // Generate WhatsApp prefilled message URL
+        const statusText = data.attendance === "si" ? "Confirmado(a) con gusto" : "Lamentablemente no podré asistir";
+        const ticketsText = data.attendance === "si" ? `\n*Boletos:* ${data.tickets}` : "";
+        const noteText = data.message ? `\n*Mensaje:* "${data.message}"` : "";
+        
+        const wppMessage = `¡Hola Gaby y Chris! ✨\n\nQuiero confirmar mi respuesta a su invitación de boda:\n\n*Nombre:* ${data.guest_name}\n*Asistencia:* ${statusText}${ticketsText}${noteText}\n\n¡Gracias!`;
+        const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(wppMessage)}`;
+        
+        // Configure WhatsApp button Link
+        const wppBtn = document.getElementById("btn-whatsapp-send");
+        if (wppBtn) {
+            wppBtn.href = whatsappUrl;
+        }
+
+        // Automatically open WhatsApp in a new tab/window
+        try {
+            window.open(whatsappUrl, "_blank");
+        } catch (e) {
+            console.log("Automatic tab open blocked by browser popup blocker. User can click the button.");
         }
 
         // Store confirmation status locally
