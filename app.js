@@ -311,10 +311,7 @@ function initRsvpForm() {
         fetch(GOOGLE_SHEETS_WEBHOOK_URL, {
             method: "POST",
             mode: "no-cors", // Crucial for Google Apps Script Webhooks to bypass CORS issues
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded"
-            },
-            body: searchParams.toString()
+            body: searchParams // Pass the URLSearchParams object directly so browser sets content-type
         })
         .then(() => {
             // Because mode is 'no-cors', we won't get readable response, but the request will go through
