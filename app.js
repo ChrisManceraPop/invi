@@ -210,6 +210,12 @@ function initRsvpForm() {
     
     if (!form || !submitBtn || !successBox) return;
 
+    // Helper: Reset confirmation status in browser if ?clear=true is in URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get("clear") === "true") {
+        localStorage.removeItem("rsvp_confirmed");
+    }
+
     // Toggle Tickets Dropdown based on attendance choice
     if (attendanceSelect && ticketsGroup) {
         attendanceSelect.addEventListener("change", () => {
