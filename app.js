@@ -207,6 +207,7 @@ function initRsvpForm() {
     const successBox = document.getElementById("rsvp-success-box");
     const attendanceSelect = document.getElementById("select-attendance");
     const ticketsGroup = document.getElementById("tickets-group");
+    const allergiesGroup = document.getElementById("allergies-group");
     
     if (!form || !submitBtn || !successBox) return;
 
@@ -221,6 +222,7 @@ function initRsvpForm() {
         attendanceSelect.addEventListener("change", () => {
             if (attendanceSelect.value === "no") {
                 ticketsGroup.classList.add("hidden");
+                if (allergiesGroup) allergiesGroup.classList.add("hidden");
                 // Set value to 0 internally or don't require
                 const selectTickets = document.getElementById("select-tickets");
                 if (selectTickets) {
@@ -236,6 +238,7 @@ function initRsvpForm() {
                 }
             } else {
                 ticketsGroup.classList.remove("hidden");
+                if (allergiesGroup) allergiesGroup.classList.remove("hidden");
                 const selectTickets = document.getElementById("select-tickets");
                 const tempZero = document.getElementById("temp-zero-opt");
                 if (tempZero) {
@@ -327,6 +330,7 @@ function initRsvpForm() {
             pases_max: formData.get("pases_max") || "2",
             guest_name: formData.get("guest_name"),
             guest_email: formData.get("guest_email") || "",
+            guest_allergies: formData.get("guest_allergies") || "",
             attendance: formData.get("attendance"),
             tickets: formData.get("tickets") || "0",
             message: formData.get("message") || "",
