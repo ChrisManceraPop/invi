@@ -248,19 +248,70 @@ function initRsvpForm() {
         });
     }
 
+    // Helper: Generate .ics file for calendar attachment
+    function generateIcsFile() {
+        const icsContent = [
+            "BEGIN:VCALENDAR",
+            "VERSION:2.0",
+            "PRODID:-//Gaby y Chris Boda//NONSGML v1.0//EN",
+            "BEGIN:VEVENT",
+            "UID:" + new Date().getTime() + "@gabyandchris.me",
+            "DTSTAMP:20261024T190000Z",
+            "DTSTART:20261024T190000Z",
+            "DTEND:20261025T050000Z",
+            "SUMMARY:Boda de Gaby & Chris",
+            "DESCRIPTION:Acompáñanos a celebrar nuestra boda.\\n\\n1:00 PM - Ceremonia Religiosa\\n2:30 PM - Recepción en Salón Essenzia.",
+            "LOCATION:Salón Essenzia, Santiago Tulantepec, Hgo.",
+            "END:VEVENT",
+            "END:VCALENDAR"
+        ].join("\r\n");
+        return "data:text/calendar;charset=utf8," + encodeURIComponent(icsContent);
+    }
+
+    // Function to handle clean reset of local RSVP storage
+    function resetRsvp() {
+        localStorage.removeItem("rsvp_confirmed");
+        localStorage.removeItem("rsvp_attendance");
+        localStorage.removeItem("rsvp_tickets");
+        const cleanParams = new URLSearchParams(window.location.search);
+        cleanParams.delete("clear");
+        const searchStr = cleanParams.toString();
+        window.location.href = window.location.origin + window.location.pathname + (searchStr ? "?" + searchStr : "");
+    }
+
     // Check if guest has already confirmed in this browser
     const alreadyConfirmed = localStorage.getItem("rsvp_confirmed");
     if (alreadyConfirmed === "true") {
         form.classList.add("hidden");
         successBox.classList.remove("hidden");
+        
+        const savedAttendance = localStorage.getItem("rsvp_attendance") || "si";
+        const savedTickets = localStorage.getItem("rsvp_tickets") || "1";
+        
         const successDesc = document.getElementById("rsvp-success-desc");
+        const calendarBox = document.getElementById("calendar-box");
+        
         if (successDesc) {
-            successDesc.textContent = "Ya has registrado tu asistencia anteriormente. ¡Gracias!";
+            if (savedAttendance === "si") {
+                successDesc.innerHTML = `Ya has registrado tu asistencia anteriormente para <strong>${savedTickets} ${savedTickets === "1" ? 'boleto' : 'boletos'}</strong>. ¡Gracias!`;
+                if (calendarBox) calendarBox.style.display = "block";
+            } else {
+                successDesc.innerHTML = `Ya has registrado tu asistencia anteriormente (Lamentablemente no podrás asistir). ¡Gracias!`;
+                if (calendarBox) calendarBox.style.display = "none";
+            }
         }
-        // Hide the WhatsApp button on re-visits since confirmation is complete
-        const wppBtn = document.getElementById("btn-whatsapp-send");
-        if (wppBtn) {
-            wppBtn.classList.add("hidden");
+        
+        // Configure iCal dynamic link on re-visits too
+        const icalBtn = document.getElementById("btn-add-ical");
+        if (icalBtn && savedAttendance === "si") {
+            icalBtn.href = generateIcsFile();
+            icalBtn.download = "Boda_Gaby_y_Chris.ics";
+        }
+        
+        // Bind the reset button
+        const resetBtn = document.getElementById("btn-reset-rsvp");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", resetRsvp);
         }
         return;
     }
@@ -275,6 +326,7 @@ function initRsvpForm() {
             invitee_name: formData.get("invitee_name") || "",
             pases_max: formData.get("pases_max") || "2",
             guest_name: formData.get("guest_name"),
+            guest_email: formData.get("guest_email") || "",
             attendance: formData.get("attendance"),
             tickets: formData.get("tickets") || "0",
             message: formData.get("message") || "",
@@ -299,10 +351,6 @@ function initRsvpForm() {
     });
 
     function submitWebhook(data) {
-        // Send request using standard fetch POST.
-        // Google Apps Script usually runs better with no-cors or standard form urlencoded content
-        // since cross-origin POST requests on Apps Script return redirects.
-        
         const searchParams = new URLSearchParams();
         for (const key in data) {
             searchParams.append(key, data[key]);
@@ -332,36 +380,34 @@ function initRsvpForm() {
         successBox.classList.remove("hidden");
         
         const successDesc = document.getElementById("rsvp-success-desc");
+        const calendarBox = document.getElementById("calendar-box");
+        
         if (successDesc) {
             if (data.attendance === "si") {
                 successDesc.innerHTML = `Hemos registrado tu asistencia para <strong>${data.tickets} ${data.tickets === "1" ? 'boleto' : 'boletos'}</strong>.<br>¡Nos vemos el 24 de Octubre de 2026!`;
+                if (calendarBox) calendarBox.style.display = "block";
             } else {
                 successDesc.innerHTML = `Lamentamos que no puedas asistir, gracias por avisarnos.<br>¡Te extrañaremos!`;
+                if (calendarBox) calendarBox.style.display = "none";
             }
         }
 
-        // Generate WhatsApp prefilled message URL
-        const statusText = data.attendance === "si" ? "Confirmado(a) con gusto" : "Lamentablemente no podré asistir";
-        const ticketsText = data.attendance === "si" ? `\n*Boletos:* ${data.tickets}` : "";
-        const noteText = data.message ? `\n*Mensaje:* "${data.message}"` : "";
-        
-        const wppMessage = `¡Hola Gaby y Chris! ✨\n\nQuiero confirmar mi respuesta a su invitación de boda:\n\n*Nombre:* ${data.guest_name}\n*Asistencia:* ${statusText}${ticketsText}${noteText}\n\n¡Gracias!`;
-        const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(wppMessage)}`;
-        
-        // Configure WhatsApp button Link
-        const wppBtn = document.getElementById("btn-whatsapp-send");
-        if (wppBtn) {
-            wppBtn.href = whatsappUrl;
+        // Configure iCal link dynamically
+        const icalBtn = document.getElementById("btn-add-ical");
+        if (icalBtn && data.attendance === "si") {
+            icalBtn.href = generateIcsFile();
+            icalBtn.download = "Boda_Gaby_y_Chris.ics";
         }
 
-        // Automatically open WhatsApp in a new tab/window
-        try {
-            window.open(whatsappUrl, "_blank");
-        } catch (e) {
-            console.log("Automatic tab open blocked by browser popup blocker. User can click the button.");
+        // Bind the reset button
+        const resetBtn = document.getElementById("btn-reset-rsvp");
+        if (resetBtn) {
+            resetBtn.addEventListener("click", resetRsvp);
         }
 
         // Store confirmation status locally
         localStorage.setItem("rsvp_confirmed", "true");
+        localStorage.setItem("rsvp_attendance", data.attendance);
+        localStorage.setItem("rsvp_tickets", data.tickets);
     }
 }

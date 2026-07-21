@@ -987,26 +987,72 @@ button {
     color: var(--color-text);
 }
 
-.btn-whatsapp {
+/* Calendar add container */
+.calendar-add-container {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px dashed var(--color-border);
+    width: 100%;
+}
+
+.calendar-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-title);
+    margin-bottom: 0.75rem;
+    font-family: var(--font-body);
+}
+
+.calendar-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.btn-calendar {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    background-color: #25d366;
-    color: white;
-    padding: 0.75rem 1.5rem;
-    border-radius: var(--border-radius-sm);
-    font-size: 0.85rem;
+    background-color: transparent;
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    padding: 0.6rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
     font-weight: 600;
-    margin-top: 1.5rem;
-    box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
     transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
 }
 
-.btn-whatsapp:hover {
-    background-color: #20ba5a;
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.3);
+.btn-calendar:hover {
+    background-color: var(--color-accent);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(143, 164, 153, 0.2);
+}
+
+.btn-calendar:active {
+    transform: translateY(0);
+}
+
+/* Reset / modify response button */
+.btn-reset-rsvp {
+    background: none;
+    border: none;
+    color: var(--color-text-light);
+    text-decoration: underline;
+    font-size: 0.75rem;
+    margin-top: 1.75rem;
+    cursor: pointer;
+    font-family: var(--font-body);
+    transition: color 0.3s ease;
+    width: 100%;
+    display: block;
+}
+
+.btn-reset-rsvp:hover {
+    color: var(--color-accent);
 }
 
 @keyframes scaleUp {
