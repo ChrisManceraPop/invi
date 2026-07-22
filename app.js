@@ -87,17 +87,31 @@ function initUrlParams() {
     // Set Greeting Text
     const greetingTextEl = document.getElementById("rsvp-greeting-text");
     const inputNameEl = document.getElementById("input-name");
+    const nameGroupEl = document.getElementById("name-group");
     const inviteeHiddenEl = document.getElementById("invitee-name-hidden");
     const pasesHiddenEl = document.getElementById("pases-max-hidden");
 
     if (inviteeName) {
         greetingTextEl.innerHTML = `¡Hola <strong>${inviteeName}</strong>!<br>Nos encantaría contar con tu presencia en este gran día.`;
-        // Prefill name input
-        if (inputNameEl) inputNameEl.value = inviteeName;
+        // Prefill name input and make it not required (since it's hidden)
+        if (inputNameEl) {
+            inputNameEl.value = inviteeName;
+            inputNameEl.removeAttribute("required");
+        }
+        // Hide name group since we already know who they are
+        if (nameGroupEl) {
+            nameGroupEl.classList.add("hidden");
+        }
         // Keep hidden record
         if (inviteeHiddenEl) inviteeHiddenEl.value = inviteeName;
     } else {
         greetingTextEl.innerHTML = `¡Nos encantaría contar con tu presencia en este gran día!`;
+        if (nameGroupEl) {
+            nameGroupEl.classList.remove("hidden");
+        }
+        if (inputNameEl) {
+            inputNameEl.setAttribute("required", "required");
+        }
     }
     
     if (pasesHiddenEl) pasesHiddenEl.value = maxPases;
@@ -308,11 +322,12 @@ function initRsvpForm() {
         const formData = new FormData(form);
         const isAttending = formData.get("attendance") === "si";
         const maxTickets = formData.get("pases_max") || "2";
+        const inviteeName = formData.get("invitee_name") || "";
 
         const data = {
-            invitee_name: formData.get("invitee_name") || "",
+            invitee_name: inviteeName,
             pases_max: maxTickets,
-            guest_name: formData.get("guest_name"),
+            guest_name: formData.get("guest_name") || inviteeName || "Invitado General",
             guest_allergies: formData.get("guest_allergies") || "",
             attendance: formData.get("attendance"),
             tickets: isAttending ? maxTickets : "0",
