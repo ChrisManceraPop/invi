@@ -313,7 +313,6 @@ function initRsvpForm() {
             invitee_name: formData.get("invitee_name") || "",
             pases_max: maxTickets,
             guest_name: formData.get("guest_name"),
-            guest_email: formData.get("guest_email") || "",
             guest_allergies: formData.get("guest_allergies") || "",
             attendance: formData.get("attendance"),
             tickets: isAttending ? maxTickets : "0",
