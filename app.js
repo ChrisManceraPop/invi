@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initLocationCards();
     initScrollReveal();
     initRsvpForm();
+    initLightbox();
 });
 
 // ==========================================================================
@@ -415,5 +416,111 @@ function initRsvpForm() {
         localStorage.setItem("rsvp_confirmed", "true");
         localStorage.setItem("rsvp_attendance", data.attendance);
         localStorage.setItem("rsvp_tickets", data.tickets);
+    }
+}
+
+// ==========================================================================
+// GALLERY LIGHTBOX SYSTEM
+// ==========================================================================
+function initLightbox() {
+    const modal = document.getElementById("lightbox-modal");
+    const modalImg = document.getElementById("lightbox-img");
+    const closeBtn = document.getElementById("lightbox-close");
+    const prevBtn = document.getElementById("lightbox-prev");
+    const nextBtn = document.getElementById("lightbox-next");
+    
+    // Select all images inside polaroid cards
+    const galleryImages = Array.from(document.querySelectorAll(".polaroid-card img"));
+    
+    if (!modal || !modalImg || galleryImages.length === 0) return;
+    
+    let currentIndex = 0;
+    
+    // Open Lightbox
+    galleryImages.forEach((img, index) => {
+        img.addEventListener("click", (e) => {
+            e.stopPropagation();
+            modal.style.display = "flex";
+            modalImg.src = img.src.split('?')[0] + "?v=1.2"; // strip parameter for fresh source
+            currentIndex = index;
+            document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+        });
+    });
+    
+    // Close Lightbox
+    function closeModal() {
+        modal.style.display = "none";
+        document.body.style.overflow = ""; // Restore scrolling
+    }
+    
+    if (closeBtn) closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+    
+    // Show Image at Index
+    function showImage(index) {
+        if (index < 0) {
+            currentIndex = galleryImages.length - 1;
+        } else if (index >= galleryImages.length) {
+            currentIndex = 0;
+        } else {
+            currentIndex = index;
+        }
+        
+        modalImg.style.opacity = 0;
+        setTimeout(() => {
+            modalImg.src = galleryImages[currentIndex].src.split('?')[0] + "?v=1.2";
+            modalImg.style.opacity = 1;
+        }, 150);
+    }
+    
+    if (prevBtn) {
+        prevBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showImage(currentIndex - 1);
+        });
+    }
+    
+    if (nextBtn) {
+        nextBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            showImage(currentIndex + 1);
+        });
+    }
+    
+    // Keyboard navigation (Esc to close, Left/Right arrows to navigate)
+    document.addEventListener("keydown", (e) => {
+        if (modal.style.display === "flex") {
+            if (e.key === "Escape") closeModal();
+            if (e.key === "ArrowLeft") showImage(currentIndex - 1);
+            if (e.key === "ArrowRight") showImage(currentIndex + 1);
+        }
+    });
+    
+    // Swipe gestures on mobile devices
+    let touchStartX = 0;
+    let touchEndX = 0;
+    
+    modal.addEventListener("touchstart", (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+    
+    modal.addEventListener("touchend", (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+    
+    function handleSwipe() {
+        const swipeThreshold = 50; // min distance in px
+        if (touchEndX < touchStartX - swipeThreshold) {
+            // Swiped Left -> Show next
+            showImage(currentIndex + 1);
+        } else if (touchEndX > touchStartX + swipeThreshold) {
+            // Swiped Right -> Show prev
+            showImage(currentIndex - 1);
+        }
     }
 }
