@@ -213,6 +213,16 @@ function initRsvpForm() {
 
     // Helper: Reset confirmation status in browser if ?clear=true is in URL
     const urlParams = new URLSearchParams(window.location.search);
+
+    // Set dynamic WhatsApp help link
+    const helpWppBtn = document.getElementById("btn-help-whatsapp");
+    if (helpWppBtn) {
+        const guestNameParam = urlParams.get("i") || "";
+        const introMsg = guestNameParam 
+            ? `¡Hola Gaby y Chris! ✨ Soy ${guestNameParam}. Les escribo para confirmarles nuestra asistencia a su boda.`
+            : `¡Hola Gaby y Chris! ✨ Les escribo para confirmarles mi asistencia a su boda.`;
+        helpWppBtn.href = `https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(introMsg)}`;
+    }
     if (urlParams.get("clear") === "true") {
         localStorage.removeItem("rsvp_confirmed");
     }
@@ -287,6 +297,10 @@ function initRsvpForm() {
     if (alreadyConfirmed === "true") {
         form.classList.add("hidden");
         successBox.classList.remove("hidden");
+        
+        // Hide help box since they already confirmed
+        const helpBox = document.getElementById("rsvp-help-box");
+        if (helpBox) helpBox.classList.add("hidden");
         
         const savedAttendance = localStorage.getItem("rsvp_attendance") || "si";
         const savedTickets = localStorage.getItem("rsvp_tickets") || "1";
@@ -382,6 +396,10 @@ function initRsvpForm() {
         // Animate out form, animate in success message
         form.classList.add("hidden");
         successBox.classList.remove("hidden");
+        
+        // Hide help box on success
+        const helpBox = document.getElementById("rsvp-help-box");
+        if (helpBox) helpBox.classList.add("hidden");
         
         const successDesc = document.getElementById("rsvp-success-desc");
         const calendarBox = document.getElementById("calendar-box");

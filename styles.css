@@ -1055,6 +1055,48 @@ button {
     color: var(--color-accent);
 }
 
+/* Help block for manual confirmations */
+.rsvp-help-container {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px dashed var(--color-border);
+    text-align: center;
+}
+
+.rsvp-help-text {
+    font-size: 0.75rem;
+    color: var(--color-text-light);
+    margin-bottom: 0.85rem;
+    font-family: var(--font-body);
+}
+
+.btn-help-wpp {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: 1px solid #25d366;
+    color: #25d366;
+    background-color: transparent;
+    padding: 0.55rem 1.25rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-soft);
+}
+
+.btn-help-wpp:hover {
+    background-color: #25d366;
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.25);
+}
+
+.btn-help-wpp:active {
+    transform: translateY(0);
+}
+
 @keyframes scaleUp {
     from { opacity: 0; transform: scale(0.9); }
     to { opacity: 1; transform: scale(1); }
