@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="styles.css?v=1.4">
+    <link rel="stylesheet" href="styles.css?v=1.5">
 </head>
 
 <body>
@@ -269,14 +269,11 @@
                     </select>
                 </div>
 
-                <div class="form-group" id="tickets-group">
-                    <label for="select-tickets">Boletos a confirmar</label>
-                    <select id="select-tickets" name="tickets">
-                        <!-- Populated by JS based on ?p=, defaults to 1-2 if empty -->
-                        <option value="1">1 Boleto</option>
-                        <option value="2">2 Boletos</option>
-                    </select>
-                    <span class="pases-label" id="max-pases-notice"></span>
+                <div class="form-group" id="tickets-info-group">
+                    <div class="tickets-badge">
+                        <span class="tickets-badge-label">Pases Reservados:</span>
+                        <strong class="tickets-badge-count" id="assigned-tickets-count">2 pases</strong>
+                    </div>
                 </div>
 
                 <div class="form-group" id="allergies-group">
@@ -331,7 +328,7 @@
     </main>
 
     <!-- Scripts -->
-    <script src="app.js?v=1.4"></script>
+    <script src="app.js?v=1.5"></script>
 </body>
 
 </html>

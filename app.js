@@ -102,22 +102,10 @@ function initUrlParams() {
     
     if (pasesHiddenEl) pasesHiddenEl.value = maxPases;
 
-    // Populate tickets dropdown
-    const selectTicketsEl = document.getElementById("select-tickets");
-    const maxPasesNoticeEl = document.getElementById("max-pases-notice");
-
-    if (selectTicketsEl) {
-        selectTicketsEl.innerHTML = "";
-        for (let idx = 1; idx <= maxPases; idx++) {
-            const opt = document.createElement("option");
-            opt.value = idx;
-            opt.textContent = `${idx} ${idx === 1 ? 'Boleto' : 'Boletos'}`;
-            selectTicketsEl.appendChild(opt);
-        }
-    }
-
-    if (maxPasesNoticeEl) {
-        maxPasesNoticeEl.textContent = `* Tienes asignado un límite de hasta ${maxPases} ${maxPases === 1 ? 'pase' : 'pases'}.`;
+    // Update the assigned tickets display badge
+    const assignedTicketsCountEl = document.getElementById("assigned-tickets-count");
+    if (assignedTicketsCountEl) {
+        assignedTicketsCountEl.textContent = `${maxPases} ${maxPases === 1 ? 'pase' : 'pases'}`;
     }
 }
 
@@ -206,7 +194,7 @@ function initRsvpForm() {
     const submitBtn = document.getElementById("rsvp-submit");
     const successBox = document.getElementById("rsvp-success-box");
     const attendanceSelect = document.getElementById("select-attendance");
-    const ticketsGroup = document.getElementById("tickets-group");
+    const ticketsInfoGroup = document.getElementById("tickets-info-group");
     const allergiesGroup = document.getElementById("allergies-group");
     
     if (!form || !submitBtn || !successBox) return;
@@ -227,36 +215,15 @@ function initRsvpForm() {
         localStorage.removeItem("rsvp_confirmed");
     }
 
-    // Toggle Tickets Dropdown based on attendance choice
-    if (attendanceSelect && ticketsGroup) {
+    // Toggle Tickets Info and Allergies fields based on attendance choice
+    if (attendanceSelect) {
         attendanceSelect.addEventListener("change", () => {
             if (attendanceSelect.value === "no") {
-                ticketsGroup.classList.add("hidden");
+                if (ticketsInfoGroup) ticketsInfoGroup.classList.add("hidden");
                 if (allergiesGroup) allergiesGroup.classList.add("hidden");
-                // Set value to 0 internally or don't require
-                const selectTickets = document.getElementById("select-tickets");
-                if (selectTickets) {
-                    // Set default to 0 option temporarily if needed
-                    const zeroOpt = document.createElement("option");
-                    zeroOpt.value = "0";
-                    zeroOpt.textContent = "0 Boletos";
-                    zeroOpt.id = "temp-zero-opt";
-                    if (!document.getElementById("temp-zero-opt")) {
-                        selectTickets.appendChild(zeroOpt);
-                    }
-                    selectTickets.value = "0";
-                }
             } else {
-                ticketsGroup.classList.remove("hidden");
+                if (ticketsInfoGroup) ticketsInfoGroup.classList.remove("hidden");
                 if (allergiesGroup) allergiesGroup.classList.remove("hidden");
-                const selectTickets = document.getElementById("select-tickets");
-                const tempZero = document.getElementById("temp-zero-opt");
-                if (tempZero) {
-                    tempZero.remove();
-                }
-                if (selectTickets && selectTickets.value === "0") {
-                    selectTickets.value = "1";
-                }
             }
         });
     }
@@ -339,14 +306,17 @@ function initRsvpForm() {
         
         // Collect form data
         const formData = new FormData(form);
+        const isAttending = formData.get("attendance") === "si";
+        const maxTickets = formData.get("pases_max") || "2";
+
         const data = {
             invitee_name: formData.get("invitee_name") || "",
-            pases_max: formData.get("pases_max") || "2",
+            pases_max: maxTickets,
             guest_name: formData.get("guest_name"),
             guest_email: formData.get("guest_email") || "",
             guest_allergies: formData.get("guest_allergies") || "",
             attendance: formData.get("attendance"),
-            tickets: formData.get("tickets") || "0",
+            tickets: isAttending ? maxTickets : "0",
             message: formData.get("message") || "",
             timestamp: new Date().toISOString()
         };

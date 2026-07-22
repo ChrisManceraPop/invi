@@ -1037,6 +1037,46 @@ button {
 }
 
 /* Reset / modify response button */
+/* Tickets Badge Display */
+.tickets-badge {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-gold-light);
+    border: 1px dashed var(--color-gold);
+    border-radius: var(--border-radius-sm);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 0.5rem;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.tickets-badge::before {
+    content: "🎟️";
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
+    font-size: 3rem;
+    opacity: 0.06;
+    transform: rotate(-15deg);
+    pointer-events: none;
+}
+
+.tickets-badge-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-title);
+    font-family: var(--font-body);
+}
+
+.tickets-badge-count {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--color-gold);
+    font-family: var(--font-body);
+}
+
 .btn-reset-rsvp {
     background: none;
     border: none;
