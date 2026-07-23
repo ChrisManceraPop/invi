@@ -441,7 +441,7 @@ function initLightbox() {
         img.addEventListener("click", (e) => {
             e.stopPropagation();
             modal.style.display = "flex";
-            modalImg.src = img.src.split('?')[0] + "?v=1.2"; // strip parameter for fresh source
+            modalImg.src = img.src; // inherit directly to support dynamic caching
             currentIndex = index;
             document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
         });
@@ -472,7 +472,7 @@ function initLightbox() {
         
         modalImg.style.opacity = 0;
         setTimeout(() => {
-            modalImg.src = galleryImages[currentIndex].src.split('?')[0] + "?v=1.2";
+            modalImg.src = galleryImages[currentIndex].src;
             modalImg.style.opacity = 1;
         }, 150);
     }
