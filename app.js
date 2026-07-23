@@ -81,8 +81,10 @@ function initUrlParams() {
     // Parse max tickets (?p=)
     const rawPases = urlParams.get("p");
     let maxPases = parseInt(rawPases, 10);
-    if (isNaN(maxPases) || maxPases <= 0) {
-        maxPases = 2; // Default to 2 if empty or invalid
+    const hasPases = !isNaN(maxPases) && maxPases > 0;
+    
+    if (!hasPases) {
+        maxPases = 0; // Set to 0 if not present
     }
 
     // Set Greeting Text
@@ -91,6 +93,7 @@ function initUrlParams() {
     const nameGroupEl = document.getElementById("name-group");
     const inviteeHiddenEl = document.getElementById("invitee-name-hidden");
     const pasesHiddenEl = document.getElementById("pases-max-hidden");
+    const ticketsInfoGroupEl = document.getElementById("tickets-info-group");
 
     if (inviteeName) {
         greetingTextEl.innerHTML = `¡Hola <strong>${inviteeName}</strong>!<br>Nos encantaría contar con tu presencia en este gran día.`;
@@ -115,12 +118,21 @@ function initUrlParams() {
         }
     }
     
-    if (pasesHiddenEl) pasesHiddenEl.value = maxPases;
+    if (pasesHiddenEl) {
+        pasesHiddenEl.value = hasPases ? maxPases.toString() : "0";
+    }
 
-    // Update the assigned tickets display badge
-    const assignedTicketsCountEl = document.getElementById("assigned-tickets-count");
-    if (assignedTicketsCountEl) {
-        assignedTicketsCountEl.textContent = `${maxPases} ${maxPases === 1 ? 'pase' : 'pases'}`;
+    // Show/hide tickets info group based on hasPases
+    if (ticketsInfoGroupEl) {
+        if (hasPases) {
+            ticketsInfoGroupEl.classList.remove("hidden");
+            const assignedTicketsCountEl = document.getElementById("assigned-tickets-count");
+            if (assignedTicketsCountEl) {
+                assignedTicketsCountEl.textContent = `${maxPases} ${maxPases === 1 ? 'pase' : 'pases'}`;
+            }
+        } else {
+            ticketsInfoGroupEl.classList.add("hidden");
+        }
     }
 }
 
@@ -233,11 +245,19 @@ function initRsvpForm() {
     // Toggle Tickets Info and Allergies fields based on attendance choice
     if (attendanceSelect) {
         attendanceSelect.addEventListener("change", () => {
+            const hasPasesHidden = document.getElementById("pases-max-hidden");
+            const hasPasesValue = hasPasesHidden ? parseInt(hasPasesHidden.value, 10) : 0;
+            const hasPases = hasPasesValue > 0;
+            
             if (attendanceSelect.value === "no") {
                 if (ticketsInfoGroup) ticketsInfoGroup.classList.add("hidden");
                 if (allergiesGroup) allergiesGroup.classList.add("hidden");
             } else {
-                if (ticketsInfoGroup) ticketsInfoGroup.classList.remove("hidden");
+                if (hasPases && ticketsInfoGroup) {
+                    ticketsInfoGroup.classList.remove("hidden");
+                } else if (ticketsInfoGroup) {
+                    ticketsInfoGroup.classList.add("hidden");
+                }
                 if (allergiesGroup) allergiesGroup.classList.remove("hidden");
             }
         });
@@ -322,16 +342,17 @@ function initRsvpForm() {
         // Collect form data
         const formData = new FormData(form);
         const isAttending = formData.get("attendance") === "si";
-        const maxTickets = formData.get("pases_max") || "2";
+        const maxTicketsVal = parseInt(formData.get("pases_max"), 10) || 0;
+        const hasPases = maxTicketsVal > 0;
         const inviteeName = formData.get("invitee_name") || "";
 
         const data = {
             invitee_name: inviteeName,
-            pases_max: maxTickets,
+            pases_max: hasPases ? maxTicketsVal.toString() : "Sin asignar",
             guest_name: formData.get("guest_name") || inviteeName || "Invitado General",
             guest_allergies: formData.get("guest_allergies") || "",
             attendance: formData.get("attendance"),
-            tickets: isAttending ? maxTickets : "0",
+            tickets: isAttending ? (hasPases ? maxTicketsVal.toString() : "Por asignar") : "0",
             message: formData.get("message") || "",
             timestamp: new Date().toISOString()
         };
@@ -391,7 +412,11 @@ function initRsvpForm() {
         
         if (successDesc) {
             if (data.attendance === "si") {
-                successDesc.innerHTML = `Hemos registrado tu asistencia para <strong>${data.tickets} ${data.tickets === "1" ? 'boleto' : 'boletos'}</strong>.<br>¡Nos vemos el 24 de Octubre de 2026!`;
+                if (data.tickets !== "Por asignar") {
+                    successDesc.innerHTML = `Hemos registrado tu asistencia para <strong>${data.tickets} ${data.tickets === "1" ? 'boleto' : 'boletos'}</strong>.<br>¡Nos vemos el 24 de Octubre de 2026!`;
+                } else {
+                    successDesc.innerHTML = `Hemos registrado tu asistencia.<br>¡Nos vemos el 24 de Octubre de 2026!`;
+                }
                 if (calendarBox) calendarBox.style.display = "block";
             } else {
                 successDesc.innerHTML = `Lamentamos que no puedas asistir, gracias por avisarnos.<br>¡Te extrañaremos!`;
